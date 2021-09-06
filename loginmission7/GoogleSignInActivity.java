@@ -28,22 +28,16 @@ public class GoogleSignInActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_MENU = 1001;
     public static final int RC_SIGN_IN = 1002;
     private GoogleSignInClient mGoogleSignInClient;
-    private Intent data;
-    private FirebaseAuth auth;
     private FirebaseAuth mAuth;
-    EditText usernameInput;
-    EditText passwordInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        FirebaseAuth mAuth;
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-
-
+        
         Button loginButton = findViewById(R.id.loginButtonFacebook);
         loginButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -64,8 +58,9 @@ public class GoogleSignInActivity extends AppCompatActivity {
 
     protected void onActivitiyResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-
+        
         if (requestCode == RC_SIGN_IN) {
+            Intent data = new Intent(this, GoogleSignInActivity.class);
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 // Google Sign In was successful, authenticate with Firebase
